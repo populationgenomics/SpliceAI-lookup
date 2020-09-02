@@ -1,0 +1,16 @@
+version: '3'
+services:
+    api:
+        build: ./SpliceAIWeb
+        volumes:
+            - "/Users/himanshujoshi/Projects/hg_ref:/hg_ref"
+        ports: 
+            - "5001:5001"
+        environment: 
+            HG19: /hg_ref/b37/human_g1k_v37.fasta
+    ui:
+        build: ./spliceaiui
+        ports:
+            - "9001:8080"
+        depends_on: 
+            - "api"
