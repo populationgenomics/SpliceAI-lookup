@@ -4,7 +4,7 @@
       <section class="mt-3">
 
           <b-card
-            title="Variant details"
+            title="SpliceAI scores lookup"
             class="mb-2"
           >
           <b-form @submit="onSubmit">
@@ -154,7 +154,7 @@ export default {
 
         currentObj.pos = response.data[0].vcf_string[0].split('-')[1]
       
-        currentObj.axios.post(process.env.VUE_APP_SPLICEAI_API_HOST + '/spliceai/api/get_variant_assessment',
+        currentObj.axios.post("process.env.VUE_APP_SPLICEAI_API_HOST" + '/spliceai/api/get_variant_assessment',
           form
         ).catch(function(error) {
           console.log("Encountered error while calling SpliceAI API [" + error + "]")

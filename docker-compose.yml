@@ -11,6 +11,6 @@ services:
     ui:
         build: ./spliceaiui
         ports:
-            - "9001:8080"
+            - "9001:80"
         depends_on: 
             - "api"
