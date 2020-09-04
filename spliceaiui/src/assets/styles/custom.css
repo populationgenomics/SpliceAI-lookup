@@ -1,0 +1,13 @@
+@media print, screen
+{
+  .q1, .q1 > th, .q1 > td { background-color: #F9FCFF !important; }
+  .q2, .q2 > th, .q2 > td { background-color: #FAF3F6 !important; }
+  .q3, .q3 > th, .q3 > td { background-color: #FAEAED !important; }
+  .q4, .q4 > th, .q4 > td { background-color: #FBE2E4 !important; }
+  .q5, .q5 > th, .q5 > td { background-color: #FCD9DB !important; }
+  .q6, .q6 > th, .q6 > td { background-color: #FCD0D1 !important; }
+  .q7, .q7 > th, .q7 > td { background-color: #FDC7C8 !important; }
+  .q8, .q8 > th, .q8 > td { background-color: #F5BBBF !important; }
+  .q9, .q9 > th, .q9 > td { background-color: #FAB4B6 !important; }
+  .q10, .q10 > th, .q10 > td { background-color: #FFADAD !important; }
+}

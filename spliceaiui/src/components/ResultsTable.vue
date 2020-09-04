@@ -37,7 +37,6 @@
       bordered
       show-empty
       small
-      striped
       stacked="md"
       :items="results"
       :fields="fields"
@@ -69,8 +68,17 @@
         },
         delta_colour(item, type) {
             if (!item || type !== 'row') return
-            if (item.donor <= -0.2 | item.acceptor <= -0.2) return 'table-danger'
-            if (item.donor >= 0.2 | item.acceptor >= 0.2) return 'table-warning'
+            var max_delta = Math.max(Math.abs(item.donor), Math.abs(item.acceptor))
+            if (max_delta > 0.001 & max_delta <= 0.1) return 'q1'
+            if (max_delta > 0.1 & max_delta <= 0.2) return 'q2'
+            if (max_delta > 0.2 & max_delta <= 0.3) return 'q3'
+            if (max_delta > 0.3 & max_delta <= 0.4) return 'q4'
+            if (max_delta > 0.4 & max_delta <= 0.5) return 'q5'
+            if (max_delta > 0.5 & max_delta <= 0.6) return 'q6'
+            if (max_delta > 0.6 & max_delta <= 0.7) return 'q7'
+            if (max_delta > 0.7 & max_delta <= 0.8) return 'q8'
+            if (max_delta > 0.8 & max_delta <= 0.9) return 'q9'
+            if (max_delta > 0.9 & max_delta <= 1) return 'q10'
         }
     },
     data() {

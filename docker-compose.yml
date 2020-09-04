@@ -9,7 +9,10 @@ services:
         environment: 
             HG19: /hg_ref/b37/human_g1k_v37.fasta
     ui:
-        build: ./spliceaiui
+        build:
+            context: ./spliceaiui
+            args:
+                BUILDENV: development
         ports:
             - "9001:80"
         depends_on: 

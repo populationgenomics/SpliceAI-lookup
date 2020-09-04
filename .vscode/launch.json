@@ -13,12 +13,14 @@
             "env": {
                 "FLASK_APP": "spliceai_web.app",
                 "FLASK_ENV": "development",
-                "FLASK_DEBUG": "0"
+                "FLASK_DEBUG": "0",
+                "HG19": "/Users/himanshujoshi/Projects/hg_ref/b37/human_g1k_v37.fasta"
             },
             "args": [
                 "run",
                 "--no-debugger",
-                "--no-reload"
+                "--no-reload",
+                "-p 5001"
             ],
             "jinja": true
         }

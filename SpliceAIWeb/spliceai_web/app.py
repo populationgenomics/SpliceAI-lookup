@@ -14,7 +14,7 @@ FORMAT = "%(asctime)s - %(name)-20s [%(funcName)-20s] %(levelname)s - %(message)
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {'origins': "*"}})
+CORS(app, resources={r"/spliceai/api/*": {'origins': "*"}})
 
 app.config['HG19'] = os.getenv("HG19")
 app.config['HG38'] = os.getenv("HG38") #'/Users/himanshujoshi/Projects/hg_ref/b37/human_g1k_v37.fasta'
