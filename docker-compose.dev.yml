@@ -12,7 +12,7 @@ services:
         build:
             context: ./spliceaiui
             args:
-                BUILDENV: production
+                BUILDENV: development
         ports:
             - "9001:80"
         depends_on: 
