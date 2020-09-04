@@ -134,11 +134,22 @@ export default {
         "https://grch37.rest.ensembl.org/variant_recoder/human/" + this.input + "?content-type=application/json&fields=vcf_string",
         { crossdomain: true }
       ).catch(function(error) {
-        console.log("Encountered error while calling Ensembl API [" + error + "]")
-        currentObj.errored = true
-        currentObj.error_message = "Encountered error while calling Ensembl API [" + error + "]"
-        currentObj.loading = false
-        currentObj.loaded = false
+        if (error.response) {
+          currentObj.errored = true
+          currentObj.error_message = "Encountered error while calling Ensembl API [" + error.response.data.error + "]"
+          currentObj.loading = false
+          currentObj.loaded = false
+        } else if (error.request) {
+          currentObj.errored = true
+          currentObj.error_message = "Encountered error while calling Ensembl API [" + error.request + "]"
+          currentObj.loading = false
+          currentObj.loaded = false
+        } else {
+          currentObj.errored = true
+          currentObj.error_message = "Encountered error while calling Ensembl API [" + error.message + "]"
+          currentObj.loading = false
+          currentObj.loaded = false
+        }
       }).then(function(response) {
         console.log(response.data)
 
@@ -157,9 +168,9 @@ export default {
         currentObj.axios.post(process.env.VUE_APP_SPLICEAI_API_HOST + '/spliceai/api/get_variant_assessment',
           form
         ).catch(function(error) {
-          console.log("Encountered error while calling SpliceAI API [" + error + "]")
+          console.log("Encountered error while calling SpliceAI API [" + error.message + "]")
           currentObj.errored = true
-          currentObj.error_message = "Encountered error while calling SpliceAI API [" + error + "]"
+          currentObj.error_message = "Encountered error while calling SpliceAI API [" + error.message + "]"
           currentObj.loading = false
           currentObj.loaded = false
         }).then(function(response) {
