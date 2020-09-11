@@ -1,7 +1,7 @@
 <template>
 <b-container>
-    <b-row>
-      <b-col sm="5" md="6" class="my-1">
+    <b-row class="mb-3">
+      <b-col>
         <b-form-group
           label="Per page"
           label-cols-sm="6"
@@ -21,7 +21,7 @@
         </b-form-group>
       </b-col>
 
-      <b-col sm="7" md="6" class="my-1">
+      <b-col>
         <b-pagination
           v-model="currentPage"
           :total-rows="totalRows"
@@ -29,6 +29,18 @@
           size="sm"
           class="my-0"
         ></b-pagination>
+      </b-col>
+
+      <b-col>
+        <b-form-spinbutton
+          value=0.01
+          min=0
+          max=1
+          step=0.01
+          size="sm"
+          placeholder=0
+          v-model="threshold"
+        />
       </b-col>
     </b-row>
 
@@ -44,6 +56,8 @@
       :per-page="perPage"
       :tbody-tr-class="delta_colour"
       :sort-compare="sortCompare"
+      :filter="threshold_str"
+      :filter-function="filter_results"
     >
     </b-table>
 </b-container>
@@ -67,7 +81,7 @@
             return value.toFixed(2)
         },
         delta_colour(item, type) {
-            if (!item || type !== 'row') return
+            if (!item || type !== 'row') return null
             var max_delta = Math.max(Math.abs(item.donor), Math.abs(item.acceptor))
             if (max_delta > 0.001 & max_delta <= 0.1) return 'q1'
             if (max_delta > 0.1 & max_delta <= 0.2) return 'q2'
@@ -79,10 +93,23 @@
             if (max_delta > 0.7 & max_delta <= 0.8) return 'q8'
             if (max_delta > 0.8 & max_delta <= 0.9) return 'q9'
             if (max_delta > 0.9 & max_delta <= 1) return 'q10'
+        },
+        filter_results(row, filter) {
+          if (Math.abs(row.donor) >= parseFloat(filter) | Math.abs(row.acceptor) >= parseFloat(filter)) {
+            return true
+          } else {
+            return false
+          }
         }
+    },
+    computed: {
+      threshold_str() {
+        return String(this.threshold)
+      }
     },
     data() {
       return {
+        threshold: 0.01,
         fields: [
           { key: 'dist_from_variant', 
             label: 'Position (relative to variant)', 
