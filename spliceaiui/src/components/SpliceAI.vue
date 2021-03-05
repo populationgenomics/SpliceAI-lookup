@@ -155,15 +155,16 @@ export default {
 
         const form = new FormData()
 
-        form.append('chrom', response.data[0].vcf_string[0].split('-')[0])
-        form.append('pos', response.data[0].vcf_string[0].split('-')[1])
-        form.append('ref', response.data[0].vcf_string[0].split('-')[2])
-        form.append('alt', response.data[0].vcf_string[0].split('-')[3])
+        let response_data = response.data[0]
+        form.append('chrom', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[0])
+        form.append('pos', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[1])
+        form.append('ref', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[2])
+        form.append('alt', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[3])
         form.append('assembly','grch37')
         form.append('distance', currentObj.selected_scan_distance)
         form.append('mask','0')
 
-        currentObj.pos = response.data[0].vcf_string[0].split('-')[1]
+        currentObj.pos = response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[1]
       
         currentObj.axios.post(process.env.VUE_APP_SPLICEAI_API_HOST + '/spliceai/api/get_variant_assessment',
           form
