@@ -18,7 +18,7 @@ This was developed to address a couple of use cases
 * Modify docker.compose files to repoint the API's volume to where the hg19 fasta file is stored
 
 ### Invoking SpliceAILookup
-```docker-compose -f docker.compose.yml -d```
+```docker-compose -f docker.compose.yml up -d```
 
 ### Shutting down SpliceAILookup
 ```docker-compose down```
