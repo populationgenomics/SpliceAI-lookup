@@ -123,7 +123,6 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       console.log("Getting predictions for: " + this.input)
-      console.log("SpliceAI API Host: " + process.env.VUE_APP_SPLICEAI_API_HOST)
 
       let currentObj = this;
       currentObj.loaded = false
@@ -131,7 +130,7 @@ export default {
       currentObj.errored = false
 
       this.axios.get(
-        "https://grch37.rest.ensembl.org/variant_recoder/human/" + this.input + "?content-type=application/json&fields=vcf_string",
+        "https://rest.ensembl.org/variant_recoder/human/" + this.input + "?content-type=application/json&fields=vcf_string",
         { crossdomain: true }
       ).catch(function(error) {
         if (error.response) {
@@ -160,13 +159,13 @@ export default {
         form.append('pos', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[1])
         form.append('ref', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[2])
         form.append('alt', response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[3])
-        form.append('assembly','grch37')
+        form.append('assembly','grch38')
         form.append('distance', currentObj.selected_scan_distance)
         form.append('mask','0')
 
         currentObj.pos = response_data[Object.keys(response_data)]['vcf_string'][0].split('-')[1]
       
-        currentObj.axios.post(process.env.VUE_APP_SPLICEAI_API_HOST + '/spliceai/api/get_variant_assessment',
+        currentObj.axios.post('/api/get_variant_assessment',
           form
         ).catch(function(error) {
           console.log("Encountered error while calling SpliceAI API [" + error.message + "]")
