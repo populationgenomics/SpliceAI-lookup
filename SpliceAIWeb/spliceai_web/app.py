@@ -14,7 +14,7 @@ FORMAT = "%(asctime)s - %(name)-20s [%(funcName)-20s] %(levelname)s - %(message)
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
 app = Flask(__name__)
-CORS(app, resources={r"/spliceai/api/*": {'origins': "*"}})
+CORS(app, resources={r"/api/*": {'origins': "*"}})
 
 app.config['HG19'] = os.getenv("HG19")
 app.config['HG38'] = os.getenv("HG38") #'/Users/himanshujoshi/Projects/hg_ref/b37/human_g1k_v37.fasta'
@@ -25,7 +25,7 @@ class Record:
     ref: str = None
     alts: list() = None
 
-@app.route('/spliceai/api/get_variant_assessment', methods=['POST'])
+@app.route('/api/get_variant_assessment', methods=['POST'])
 def get_variant_assessment():
     logger.debug("Invoking get_variant_assessment")
     logger.debug("Chromosome: " + request.form['chrom'])
